@@ -5,8 +5,8 @@ import java.util.Random;
  * A simple model of a rabbit.
  * Rabbits age, move, breed, and die.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author Kyle Balao
+ * @version 04/29/21
  */
 public class Rabbit extends Animal
 {
@@ -66,15 +66,23 @@ public class Rabbit extends Animal
             }
         }
     }
+    
+    /**
+     * returns the maximum age of a fox can live
+     * @return int maximum age of a fox can live
+     */
+    protected int getMaxAge()
+    {
+    	return MAX_AGE;
+    }
 
     /**
-     * Increase the age.
-     * This could result in the rabbit's death.
+     * Increase the age. This could result in the rabbit's death.
      */
-    private void incrementAge()
-    {
-        age++;
-        if(age > MAX_AGE) {
+    private void incrementAge() {
+        int age = getAge();
+        setAge(++age);
+        if (age > MAX_AGE) {
             setDead();
         }
     }
@@ -97,27 +105,34 @@ public class Rabbit extends Animal
             newRabbits.add(young);
         }
     }
-        
+    
     /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
+     * Returns the breeding age of the animal
+     * @return BREEDING_AGE 
      */
-    private int breed()
-    {
-        int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return births;
+    
+    public int getBreedingAge() {
+        return BREEDING_AGE;
     }
 
     /**
-     * A rabbit can breed if it has reached the breeding age.
-     * @return true if the rabbit can breed, false otherwise.
+     * Returns the chance for the animal to breed
+     * 
+     * @return the chance for the animal to breed
      */
-    private boolean canBreed()
-    {
-        return age >= BREEDING_AGE;
+    
+    public double getBreedingProbability() {
+        return BREEDING_PROBABILITY;
+    }
+
+    /**
+     * RETRIEVE BREEDING_PROBABILITY
+     * @return BREEDING_PROBABILITY 
+     */
+    
+    public int getMaxLitterSize() {
+        return MAX_LITTER_SIZE;
     }
 }
+        
+    
