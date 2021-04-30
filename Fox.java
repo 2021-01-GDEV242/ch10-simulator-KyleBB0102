@@ -6,8 +6,8 @@ import java.util.Random;
  * A simple model of a fox.
  * Foxes age, move, eat rabbits, and die.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author Kyle Balao
+ * @version 04/29/21
  */
 public class Fox extends Animal
 {
@@ -83,14 +83,23 @@ public class Fox extends Animal
             }
         }
     }
+    
+    /**
+     * returns the maximum age of a fox can live
+     * @return int maximum age of a fox can live
+     */
+    protected int getMaxAge()
+    {
+    	return MAX_AGE;
+    }
 
     /**
      * Increase the age. This could result in the fox's death.
      */
-    private void incrementAge()
-    {
-        age++;
-        if(age > MAX_AGE) {
+    private void incrementAge() {
+        int age = getAge();
+        setAge(++age);
+        if (age > MAX_AGE) {
             setDead();
         }
     }
@@ -148,27 +157,32 @@ public class Fox extends Animal
             Fox young = new Fox(false, field, loc);
             newFoxes.add(young);
         }
-    }
-        
+    }        
+   
     /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
+     * Returns the breeding age of the animal
+     * @return BREEDING_AGE 
      */
-    private int breed()
+    public int getBreedingAge()
     {
-        int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return births;
+    	return BREEDING_AGE;
     }
-
+    
     /**
-     * A fox can breed if it has reached the breeding age.
+     * Retrieve MAX_LITTER_SIZE
+     * @return MAX_LITTER_SIZE 
      */
-    private boolean canBreed()
+    public int getMaxLitterSize()
     {
-        return age >= BREEDING_AGE;
+    	return MAX_LITTER_SIZE;
+    }
+    
+    /**
+     * RETRIEVE BREEDING_PROBABILITY
+     * @return BREEDING_PROBABILITY 
+     */
+    public double getBreedingProbability()
+    {
+    	return BREEDING_PROBABILITY;
     }
 }
